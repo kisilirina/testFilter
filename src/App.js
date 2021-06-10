@@ -1,15 +1,22 @@
+import { useDispatch } from "react-redux"
 import './App.css';
-import CardsList from './components/CardsList/CardsList';
-import {useEffect} from 'react'
+import CardsList from './components/CardsList/CardsList.jsx';
+import { useEffect } from 'react'
+import { getUsersFromApi } from './redux/actionCreators/usersAC';
+import SearchForm from "./components/SearchForm/SearchForm";
 
 function App() {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-   fetch('https://randomuser.me/api/?results=20')
-   .then(result => result.json())
-   .then(data => console.log(data));
+    dispatch(getUsersFromApi())
   }, [])
+
   return (
-    <CardsList />
+    <>
+      <SearchForm />
+      <CardsList />
+    </>
   );
 }
 
