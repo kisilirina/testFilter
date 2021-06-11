@@ -25,8 +25,8 @@ function SearchForm() {
 
       <div>
         <div>
-          <p>Фильтр по полу</p>
           <div>
+            <p>Фильтр по полу</p>
             <input
               type="radio"
               id="genderChoice1"
@@ -57,9 +57,9 @@ function SearchForm() {
           <div>
           </div>
         </div>
-        <p>Фильтр по возрастным группам</p>
 
         <div>
+          <p>Фильтр по возрастным группам</p>
           <input
             type="checkbox"
             id="agesChoice1"

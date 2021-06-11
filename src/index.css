@@ -1,7 +1,12 @@
 body {
-  width: 1440px;
-  height: 1526px;
+  width: 100wv;
+  height: 100wh;
   background: #FAFAFA;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 16px;
 }
 
 .card {
@@ -42,10 +47,23 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-content: space-around;
-  background-color: #E5E5E5;
+  padding: 16px 200px;
+  margin: 0%;
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
+  .card-list {
+    padding: 16px;
+  }
 }
 
-@media (max-width: 767px) {}
+@media (max-width: 767px) {
+  .card-list {
+    padding: 16px;
+    margin: 0;
+    width: 85%;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+  }
+}
