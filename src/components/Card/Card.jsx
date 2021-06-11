@@ -11,7 +11,7 @@ function Card({user}) {
         <p>Возраст: {user.dob.age}</p>
         <p>Пол: {user.gender}</p>
         <p>Адрес: {user.location.country},{user.location.city}</p>
-        <p>Дата регистрации: {new Date(user.registered.date).toLocaleString().slice(0,10)}</p>
+        <p>Дата регистрации: {new Date(user.registered.date).toLocaleDateString()}</p>
       </div>
     </div>
   )
