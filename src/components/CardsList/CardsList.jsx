@@ -18,7 +18,7 @@ function CardsList() {
       {
         foundUsers.length ?
           foundUsers.map(user => <Card key={user.cell} user={user} />)
-          : <p>Здесь пока ничего нет...</p>
+          : <p>Совпадений нет...</p>
       }
     </div>
   )

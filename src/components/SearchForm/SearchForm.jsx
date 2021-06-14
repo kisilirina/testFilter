@@ -6,12 +6,12 @@ function SearchForm() {
 
   const dispatch = useDispatch();
   const usersFromApi = useSelector(state => state.users)
-
+  // const foundUsers = useSelector(state => state.foundUsers);
   const searchHandler = (e) => {
     const { name, value } = e.target;
 
     dispatch(getUsersForSearchAC(usersFromApi));
-    if (value.trim()) {
+    if (value.trim()) {                
       dispatch(searchUsersAC({ [name]: value }));
     };
   }
@@ -21,7 +21,7 @@ function SearchForm() {
     onSubmit={(e) => e.preventDefault()}
     >
       <div>
-        <input
+        <input                                                                    
           onChange={searchHandler}
           placeholder="Начните вводить..."
           type="search"
