@@ -1,28 +1,25 @@
-import { useSelector } from 'react-redux'
-import Card from '../Card/Card.jsx'
-import { useDispatch } from "react-redux"
+import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { getUsersFromApi } from '../../redux/actionCreators/usersAC.js'
+import Card from '../Card/Card.jsx'
+
+import { getUsersForSearchAC} from '../../redux/actionCreators/usersAC.js'
 
 function CardsList() {
-
-  const users = useSelector(state => state.users)
-
+  const foundUsers = useSelector(state => state.foundUsers);
   const dispatch = useDispatch();
+  const usersFromApi = useSelector(state => state.users)
 
   useEffect(() => {
-    if (!users.length) dispatch(getUsersFromApi());
+    dispatch(getUsersForSearchAC(usersFromApi));
   }, [])
- 
-
 
   return (
     <div className="card-list">
-    {
-      users.length ?
-        users.map(user => <Card key={user.cell} user={user} />)
-        : <p>Здесь пока ничего нет...</p>
-    }
+      {
+        foundUsers.length ?
+          foundUsers.map(user => <Card key={user.cell} user={user} />)
+          : <p>Здесь пока ничего нет...</p>
+      }
     </div>
   )
 }

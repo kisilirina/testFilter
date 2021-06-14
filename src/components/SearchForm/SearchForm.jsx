@@ -1,18 +1,25 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
-import { searchUsersAC } from '../../redux/actionCreators/usersAC';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUsersForSearchAC, searchUsersAC } from '../../redux/actionCreators/usersAC';
 
 function SearchForm() {
 
   const dispatch = useDispatch();
+  const usersFromApi = useSelector(state => state.users)
 
   const searchHandler = (e) => {
     const { name, value } = e.target;
-    if (value.trim()) dispatch(searchUsersAC({ [name]: value }));
+
+    dispatch(getUsersForSearchAC(usersFromApi));
+    if (value.trim()) {
+      dispatch(searchUsersAC({ [name]: value }));
+    };
   }
 
   return (
-    <form>
+    <form
+    onSubmit={(e) => e.preventDefault()}
+    >
       <div>
         <input
           onChange={searchHandler}

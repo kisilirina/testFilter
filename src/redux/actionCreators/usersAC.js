@@ -1,4 +1,4 @@
-import { FIND_USERS_BY_AGE, FIND_USERS_BY_GENDER, FIND_USERS_BY_NAME, GET_USERS } from "../types/usersTypes"
+import { FIND_USERS_BY_AGE, FIND_USERS_BY_GENDER, FIND_USERS_BY_NAME, GET_USERS, GET_USERS_FOR_SEARCH } from "../types/usersTypes"
 
 
 export const getUsersFromApi = () => async (dispatch) => {
@@ -10,6 +10,13 @@ export const getUsersFromApi = () => async (dispatch) => {
 export const getUsersAC = (users) => {
   return {
     type: GET_USERS,
+    payload: users
+  }
+}
+
+export const getUsersForSearchAC = (users) => {
+  return {
+    type: GET_USERS_FOR_SEARCH,
     payload: users
   }
 }
