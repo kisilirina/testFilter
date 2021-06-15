@@ -21,8 +21,8 @@ export const getUsersForSearchAC = (users) => {
   }
 }
 
-export const searchUsersAC = ({ inputSearch, genderSearch, ageSearch }) =>  {
-  if (inputSearch) {
+export const searchUsersAC = ({ inputSearch, genderSearch, ...ageSearch }) =>  {
+  if (inputSearch.trim()) {
     return {
       type: FIND_USERS_BY_NAME,
       payload: inputSearch
@@ -36,7 +36,7 @@ export const searchUsersAC = ({ inputSearch, genderSearch, ageSearch }) =>  {
     }
   }
 
-  if (ageSearch) {
+  if (ageSearch.length) {
     return {
       type: FIND_USERS_BY_AGE,
       payload: ageSearch
