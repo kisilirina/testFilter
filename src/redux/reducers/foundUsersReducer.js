@@ -1,50 +1,98 @@
-import { FIND_USERS_BY_AGE, FIND_USERS_BY_GENDER, FIND_USERS_BY_NAME, GET_USERS_FOR_SEARCH } from "../types/usersTypes";
+import { FIND_USERS, FIND_USERS_BY_AGE, FIND_USERS_BY_GENDER, FIND_USERS_BY_NAME, GET_USERS_FOR_SEARCH } from "../types/usersTypes";
 
 const foundUsersReducer = (state = [], action) => {
   switch (action.type) {
     case GET_USERS_FOR_SEARCH:
       return action.payload
 
-    case FIND_USERS_BY_NAME:
-      return state.filter(user => Object
-        .values(user.name)
-        .join(' ')
-        .toLowerCase()
-        .includes(action.payload.toLowerCase()))
+    case FIND_USERS:
+      const { inputSearch, genderSearch, ageSearch } = action.payload;
+      let result = state;
+      console.log(result, 'result1');
 
-    case FIND_USERS_BY_GENDER:
-      if (action.payload !== 'all') {
-        return state.filter(user => user.gender === action.payload)
+      if (inputSearch.trim()) {
+        result = result.filter(user => Object
+          .values(user.name)
+          .join(' ')
+          .toLowerCase()
+          .includes(inputSearch.toLowerCase()))
+      console.log(result, 'resultininputsearch');
+
       }
-      return state;
+      console.log(result, 'result2');
 
-    case FIND_USERS_BY_AGE:
-      const mapOfAges = {
-        '0-18': {
-          from: 0,
-          to: 18,
-        },
-        '18-35': {
-          from: 18,
-          to: 35,
-        },
-        '35-65': {
-          from: 35,
-          to: 65,
-        },
-        '65+': {
-          from: 65,
-          to: 150,
+      if ( genderSearch && genderSearch !== 'all') {
+        result = result.filter(user => user.gender === genderSearch)
+      }
+
+      if (Object.keys(ageSearch).length) {
+        const mapOfAges = {
+          '0-18': {
+            from: 0,
+            to: 18,
+          },
+          '18-35': {
+            from: 18,
+            to: 35,
+          },
+          '35-65': {
+            from: 35,
+            to: 65,
+          },
+          '65+': {
+            from: 65,
+            to: 150,
+          }
         }
+        result = Object.keys(ageSearch).reduce((acc, cur) => {
+          const users = result.filter(user => user.dob.age >= mapOfAges[cur].from && user.dob.age < mapOfAges[cur].to);
+          acc.push(...users);
+          return acc;
+        }, []);
       }
-      ////////////////
-      const resultOfSearch = Object.keys(action.payload).reduce((acc, cur) => {
-        const users = state.filter(user => user.dob.age >= mapOfAges[cur].from && user.dob.age < mapOfAges[cur].to);
-        acc.push(...users);
-        return acc;
-      }, []);
-      console.log(resultOfSearch, 'resultOfSearch');
-      return resultOfSearch;
+      console.log(result);
+      return result
+    ///////////////////////////////////////////
+    // case FIND_USERS_BY_NAME:
+    //   return state.filter(user => Object
+    //     .values(user.name)
+    //     .join(' ')
+    //     .toLowerCase()
+    //     .includes(action.payload.toLowerCase()))
+
+    // case FIND_USERS_BY_GENDER:
+    //   if (action.payload !== 'all') {
+    //     return state.filter(user => user.gender === action.payload)
+    //   }
+    //   return state;
+
+    // case FIND_USERS_BY_AGE:
+    //   const mapOfAges = {
+    //     '0-18': {
+    //       from: 0,
+    //       to: 18,
+    //     },
+    //     '18-35': {
+    //       from: 18,
+    //       to: 35,
+    //     },
+    //     '35-65': {
+    //       from: 35,
+    //       to: 65,
+    //     },
+    //     '65+': {
+    //       from: 65,
+    //       to: 150,
+    //     }
+    //   }
+    //   ////////////////
+    //   const resultOfSearch = Object.keys(action.payload).reduce((acc, cur) => {
+    //     const users = state.filter(user => user.dob.age >= mapOfAges[cur].from && user.dob.age < mapOfAges[cur].to);
+    //     acc.push(...users);
+    //     return acc;
+    //   }, []);
+    //   console.log(resultOfSearch, 'resultOfSearch');
+    //   return resultOfSearch;
     /////////////////
     // switch (action.payload) {
     //   case '0-18':
